@@ -1,0 +1,26 @@
+services:
+  api:
+    build:
+      context: ./WebAPI_FirmTaskProject
+      dockerfile: ./WebAPI_FirmTaskProject/Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - firmDb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=firmDb;Database=firmDb;User=sa;Password=Str0ngP@ssword!;Encrypt=False;TrustServerCertificate=True;
+
+  firmDb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Str0ngP@ssword!
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data:
