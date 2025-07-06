@@ -1,122 +1,132 @@
-<div class="filters">
-  <label>
-    Отдел
-    <input placeholder="Фильтр Отдел" [(ngModel)]="filters.department" />
-  </label>
+<div class="container py-4">
+  <form class="row g-3 align-items-end mb-4">
+    <div class="col-md-2">
+      <label class="form-label">Отдел</label>
+      <input class="form-control" placeholder="Фильтр Отдел" [(ngModel)]="filters.department" name="department"/>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Ф.И.О</label>
+      <input class="form-control" placeholder="Фильтр Ф.И.О" [(ngModel)]="filters.fullName" name="fullName"/>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Родились с</label>
+      <input type="date" class="form-control" [(ngModel)]="filters.birthDateFrom" name="birthDateFrom"/>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Родились по</label>
+      <input type="date" class="form-control" [(ngModel)]="filters.birthDateTo" name="birthDateTo"/>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Устроены с</label>
+      <input type="date" class="form-control" [(ngModel)]="filters.employmentDateFrom" name="employmentDateFrom"/>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Устроены по</label>
+      <input type="date" class="form-control" [(ngModel)]="filters.employmentDateTo" name="employmentDateTo"/>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Зарплата от</label>
+      <input type="number" class="form-control" placeholder="Зарплата от" [(ngModel)]="filters.salaryMin" name="salaryMin"/>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Зарплата до</label>
+      <input type="number" class="form-control" placeholder="Зарплата до" [(ngModel)]="filters.salaryMax" name="salaryMax"/>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary w-100" (click)="filter()">Применить фильтры</button>
+    </div>
+    <div class="col-md-6 d-flex gap-2">
+      <button type="button" class="btn btn-outline-secondary" (click)="resetFilters()">Сбросить фильтры</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="resetSorting()">Сбросить сортировку</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="resetAll()">Сбросить всё</button>
+    </div>
+  </form>
 
-  <label>
-    Ф.И.О
-    <input placeholder="Фильтр Ф.И.О" [(ngModel)]="filters.fullName" />
-  </label>
-
-  <label>
-    Родились с
-    <input type="date" [(ngModel)]="filters.birthDateFrom" />
-  </label>
-
-  <label>
-    Родились по
-    <input type="date" [(ngModel)]="filters.birthDateTo" />
-  </label>
-
-  <label>
-    Устроены с
-    <input type="date" [(ngModel)]="filters.employmentDateFrom" />
-  </label>
-
-  <label>
-    Устроены по
-    <input type="date" [(ngModel)]="filters.employmentDateTo" />
-  </label>
-
-  <label>
-    Зарплата от
-    <input type="number" placeholder="Зарплата от" [(ngModel)]="filters.salaryMin" />
-  </label>
-
-  <label>
-    Зарплата до
-    <input type="number" placeholder="Зарплата до" [(ngModel)]="filters.salaryMax" />
-  </label>
-
-  <button (click)="filter()">Применить фильтры</button>
-
-  <div class="actions">
-    <button (click)="resetFilters()">Сбросить фильтры</button>
-    <button (click)="resetSorting()">Сбросить сортировку</button>
-    <button (click)="resetAll()">Сбросить фильтры и сортировку</button>
+  <div class="mb-3 text-end">
+    <button class="btn btn-success" (click)="openCreateModal()">Создать сотрудника</button>
   </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>
+            <button type="button" class="btn btn-link p-0" (click)="sort('department')">
+              Отдел
+              <span *ngIf="sortBy === 'department'">{{ sortDesc ? '↓' : '↑' }}</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" class="btn btn-link p-0" (click)="sort('fullName')">
+              Ф.И.О
+              <span *ngIf="sortBy === 'fullName'">{{ sortDesc ? '↓' : '↑' }}</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" class="btn btn-link p-0" (click)="sort('birthDate')">
+              Дата рождения
+              <span *ngIf="sortBy === 'birthDate'">{{ sortDesc ? '↓' : '↑' }}</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" class="btn btn-link p-0" (click)="sort('employmentDate')">
+              Дата устройства
+              <span *ngIf="sortBy === 'employmentDate'">{{ sortDesc ? '↓' : '↑' }}</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" class="btn btn-link p-0" (click)="sort('salary')">
+              Зарплата
+              <span *ngIf="sortBy === 'salary'">{{ sortDesc ? '↓' : '↑' }}</span>
+            </button>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td>{{ emp.department }}</td>
+          <td>{{ emp.fullName }}</td>
+          <td>{{ emp.birthDate | date:'yyyy-MM-dd' }}</td>
+          <td>{{ emp.employmentDate | date:'yyyy-MM-dd' }}</td>
+          <td>{{ emp.salary | currency:'RUB':'symbol':'1.2-2' }}</td>
+          <td>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-warning btn-sm" (click)="openEditModal(emp)">Редактировать</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="openDeleteModal(emp)">Удалить</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="d-flex justify-content-center my-4">
+    <ul class="pagination mb-0">
+      <li class="page-item">
+        <button class="page-link" (click)="prevPage()" [disabled]="pageNumber <= 1">← Назад</button>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">Страница {{ pageNumber }}</span>
+      </li>
+      <li class="page-item">
+        <button class="page-link" (click)="nextPage()" [disabled]="!hasMore">Вперёд →</button>
+      </li>
+    </ul>
+  </nav>
+
+  <app-employee-modal
+    *ngIf="modalVisible"
+    [mode]="modalMode"
+    [employee]="selectedEmployee"
+    (saved)="onModalSave($event)"
+    (closed)="onModalClose()">
+  </app-employee-modal>
+
+  <app-confirm-delete-modal
+    *ngIf="deleteModalVisible && selectedEmployee"
+    [employee]="selectedEmployee"
+    (confirmed)="onDeleteConfirm()"
+    (cancelled)="onDeleteCancel()">
+  </app-confirm-delete-modal>
 </div>
-
-<table>
-  <thead>
-    <tr>
-        <th>
-        <button type="button" (click)="sort('department')" class="sort-button">
-            Отдел
-            <span *ngIf="sortBy === 'department'">{{ sortDesc ? '↓' : '↑' }}</span>
-        </button>
-        </th>
-        <th>
-        <button type="button" (click)="sort('fullName')" class="sort-button">
-            Ф.И.О
-            <span *ngIf="sortBy === 'fullName'">{{ sortDesc ? '↓' : '↑' }}</span>
-        </button>
-        </th>
-        <th>
-        <button type="button" (click)="sort('birthDate')" class="sort-button">
-            Дата рождения
-            <span *ngIf="sortBy === 'birthDate'">{{ sortDesc ? '↓' : '↑' }}</span>
-        </button>
-        </th>
-        <th>
-        <button type="button" (click)="sort('employmentDate')" class="sort-button">
-            Дата устройства
-            <span *ngIf="sortBy === 'employmentDate'">{{ sortDesc ? '↓' : '↑' }}</span>
-        </button>
-        </th>
-        <th>
-        <button type="button" (click)="sort('salary')" class="sort-button">
-            Зарплата
-            <span *ngIf="sortBy === 'salary'">{{ sortDesc ? '↓' : '↑' }}</span>
-        </button>
-        </th>
-        <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let emp of employees">
-      <td>{{ emp.department }}</td>
-      <td>{{ emp.fullName }}</td>
-      <td>{{ emp.birthDate | date:'yyyy-MM-dd' }}</td>
-      <td>{{ emp.employmentDate | date:'yyyy-MM-dd' }}</td>
-      <td>{{ emp.salary | currency:'RUB':'symbol':'1.2-2' }}</td>
-      <td>
-        <button (click)="openEditModal(emp)">Редактировать</button>
-        <button (click)="openDeleteModal(emp)">Удалить</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<button (click)="openCreateModal()">Создать сотрудника</button>
-<div class="pagination">
-  <button (click)="prevPage()" [disabled]="pageNumber <= 1">← Назад</button>
-  <span>Страница {{ pageNumber }}</span>
-  <button (click)="nextPage()" [disabled]="!hasMore">Вперёд →</button>
-</div>
-
-<app-employee-modal
-  *ngIf="modalVisible"
-  [mode]="modalMode"
-  [employee]="selectedEmployee"
-  (saved)="onModalSave($event)"
-  (closed)="onModalClose()">
-</app-employee-modal>
-
-<app-confirm-delete-modal
-  *ngIf="deleteModalVisible && selectedEmployee"
-  [employee]="selectedEmployee"
-  (confirmed)="onDeleteConfirm()"
-  (cancelled)="onDeleteCancel()">
-</app-confirm-delete-modal>

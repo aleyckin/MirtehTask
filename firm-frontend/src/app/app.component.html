@@ -1,8 +1,19 @@
-<nav class="navbar">
-  <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">О компании</a>
-  <a routerLink="/employees" routerLinkActive="active">Сотрудники</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <div class="container">
+    <a class="navbar-brand" routerLink="">Mirteh</a>
+    <div>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row gap-3">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">О компании</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/employees" routerLinkActive="active">Сотрудники</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
-<main>
+<main class="container">
   <router-outlet></router-outlet>
 </main>

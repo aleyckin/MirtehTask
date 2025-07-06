@@ -1,25 +1,41 @@
-<div class="modal-backdrop" (click)="close()"></div>
-<div class="modal">
-  <h2>{{ mode === 'create' ? 'Создать сотрудника' : 'Редактировать сотрудника' }}</h2>
-  <form (ngSubmit)="save()">
-    <label>Отдел:</label>
-    <input [(ngModel)]="tempEmployee.department" name="department" required />
-
-    <label>Ф.И.О:</label>
-    <input [(ngModel)]="tempEmployee.fullName" name="fullName" required />
-
-    <label>Дата рождения:</label>
-    <input type="date" [(ngModel)]="tempEmployee.birthDate" name="birthDate" required />
-
-    <label>Дата устройства:</label>
-    <input type="date" [(ngModel)]="tempEmployee.employmentDate" name="employmentDate" required />
-
-    <label>Зарплата:</label>
-    <input type="number" [(ngModel)]="tempEmployee.salary" name="salary" required />
-
-    <div class="buttons">
-      <button type="submit">Сохранить</button>
-      <button type="button" (click)="close()">Отмена</button>
+<div class="modal-backdrop fade show" (click)="close()"></div>
+<div class="modal d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form (ngSubmit)="save()">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ mode === 'create' ? 'Создать сотрудника' : 'Редактировать сотрудника' }}
+          </h5>
+          <button type="button" class="btn-close" aria-label="Закрыть" (click)="close()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Отдел:</label>
+            <input class="form-control" [(ngModel)]="tempEmployee.department" name="department" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ф.И.О:</label>
+            <input class="form-control" [(ngModel)]="tempEmployee.fullName" name="fullName" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Дата рождения:</label>
+            <input type="date" class="form-control" [(ngModel)]="tempEmployee.birthDate" name="birthDate" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Дата устройства:</label>
+            <input type="date" class="form-control" [(ngModel)]="tempEmployee.employmentDate" name="employmentDate" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Зарплата:</label>
+            <input type="number" class="form-control" [(ngModel)]="tempEmployee.salary" name="salary" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+          <button type="button" class="btn btn-secondary" (click)="close()">Отмена</button>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div>
