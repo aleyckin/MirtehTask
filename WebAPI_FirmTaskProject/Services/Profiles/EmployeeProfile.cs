@@ -14,6 +14,7 @@ namespace Services.Profiles
         public EmployeeProfile() 
         {
             CreateMap<Employee, EmployeeDto>().ReverseMap();
+            CreateMap<Employee, EmployeeCreateOrUpdateDto>().ReverseMap();
         }
     }
 }

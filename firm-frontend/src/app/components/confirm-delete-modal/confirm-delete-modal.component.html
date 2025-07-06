@@ -1,0 +1,10 @@
+<div class="modal-backdrop" (click)="cancel()"></div>
+<div class="modal">
+  <h3>Удалить сотрудника?</h3>
+  <p>Вы действительно хотите удалить <strong>{{ employee?.fullName }}</strong>?</p>
+
+  <div class="buttons">
+    <button (click)="confirm()">Да</button>
+    <button (click)="cancel()">Отмена</button>
+  </div>
+</div>

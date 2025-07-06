@@ -1,0 +1,198 @@
+:host {
+  display: block;
+  padding: 32px;
+  background: #f7f8fa;
+  min-height: 100vh;
+}
+
+h1 {
+  margin-bottom: 24px;
+  color: #2d3a4b;
+  font-size: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-bottom: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+th {
+  background: #f1f3f7;
+  font-weight: 600;
+  color: #374151;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+th {
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+th.sorted-asc::after,
+th.sorted-desc::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  border: 6px solid transparent;
+  transform: translateY(-50%);
+}
+
+th.sorted-asc::after {
+  border-bottom-color: #2563eb;
+}
+
+th.sorted-desc::after {
+  border-top-color: #2563eb;
+}
+
+button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 1rem;
+}
+
+button:last-child {
+  margin-right: 0;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button[disabled] {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+
+app-employee-modal,
+app-confirm-delete-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+@media (max-width: 600px) {
+  table, th, td {
+    font-size: 0.95rem;
+    padding: 8px;
+  }
+  :host {
+    padding: 8px;
+  }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filters label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: #444;
+  min-width: 140px;
+}
+
+.filters input {
+  margin-top: 4px;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.actions {
+  margin: 12px 0 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.actions button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.actions button:hover {
+  background: #1d4ed8;
+}
+
+.sort-button {
+  all: unset;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.sort-button span {
+  font-size: 0.8em;
+  color: #2563eb;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.pagination button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination button:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+tbody tr:hover {
+  background: #f0f6fc;
+  transition: background 0.2s;
+}

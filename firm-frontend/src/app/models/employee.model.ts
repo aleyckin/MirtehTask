@@ -1,4 +1,5 @@
 export interface EmployeeDto {
+  id: string;
   department: string;
   fullName: string;
   birthDate: string;
@@ -21,4 +22,12 @@ export interface EmployeeQueryParameters {
 
   PageNumber: number;
   PageSize: number;
+}
+
+export interface EmployeeCreateOrUpdateDto {
+  department: string;
+  fullName: string;
+  birthDate: string;
+  employmentDate: string;
+  salary: number;
 }

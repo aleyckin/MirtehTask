@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EmployeeDto, EmployeeQueryParameters } from '../models/employee.model';
+import { EmployeeDto, EmployeeQueryParameters, EmployeeCreateOrUpdateDto } from '../models/employee.model';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
@@ -21,6 +21,15 @@ export class EmployeeService {
     return this.http.get<EmployeeDto[]>(this.baseUrl, { params });
   }
 
+  create(employee: EmployeeCreateOrUpdateDto): Observable<any> {
+    return this.http.post(this.baseUrl, employee);
+  }
 
-  // методы create/update/delete здесь
+  update(id: string, employee: EmployeeCreateOrUpdateDto): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, employee);
+  }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

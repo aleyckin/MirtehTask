@@ -25,7 +25,7 @@ namespace Services.Services
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(EmployeeDto employeeDto)
+        public async Task CreateAsync(EmployeeCreateOrUpdateDto employeeDto)
         {
             Employee employee = _mapper.Map<Employee>(employeeDto);
             _dataContext.Employees.Add(employee);
@@ -69,13 +69,23 @@ namespace Services.Services
 
             if (!string.IsNullOrWhiteSpace(query.SortBy))
             {
-                queryable = query.SortBy switch
+                queryable = query.SortBy?.ToLower() switch
                 {
-                    "Department" => query.SortDescending ? queryable.OrderByDescending(e => e.Department) : queryable.OrderBy(e => e.Department),
-                    "FullName" => query.SortDescending ? queryable.OrderByDescending(e => e.FullName) : queryable.OrderBy(e => e.FullName),
-                    "BirthDate" => query.SortDescending ? queryable.OrderByDescending(e => e.BirthDate) : queryable.OrderBy(e => e.BirthDate),
-                    "EmploymentDate" => query.SortDescending ? queryable.OrderByDescending(e => e.EmploymentDate) : queryable.OrderBy(e => e.EmploymentDate),
-                    "Salary" => query.SortDescending ? queryable.OrderByDescending(e => e.Salary) : queryable.OrderBy(e => e.Salary),
+                    "department" => query.SortDescending
+                        ? queryable.OrderByDescending(e => e.Department)
+                        : queryable.OrderBy(e => e.Department),
+                    "fullname" => query.SortDescending
+                        ? queryable.OrderByDescending(e => e.FullName)
+                        : queryable.OrderBy(e => e.FullName),
+                    "birthdate" => query.SortDescending
+                        ? queryable.OrderByDescending(e => e.BirthDate)
+                        : queryable.OrderBy(e => e.BirthDate),
+                    "employmentdate" => query.SortDescending
+                        ? queryable.OrderByDescending(e => e.EmploymentDate)
+                        : queryable.OrderBy(e => e.EmploymentDate),
+                    "salary" => query.SortDescending
+                        ? queryable.OrderByDescending(e => e.Salary)
+                        : queryable.OrderBy(e => e.Salary),
                     _ => queryable.OrderBy(e => e.FullName)
                 };
             }
@@ -90,7 +100,7 @@ namespace Services.Services
             return await _mapper.ProjectTo<EmployeeDto>(queryable).ToListAsync();
         }
 
-        public async Task UpdateAsync(Guid id, EmployeeDto employeeDto)
+        public async Task UpdateAsync(Guid id, EmployeeCreateOrUpdateDto employeeDto)
         {
             Employee employee = await GetEmployeeOrThrowAsync(id);
             _mapper.Map(employeeDto, employee);

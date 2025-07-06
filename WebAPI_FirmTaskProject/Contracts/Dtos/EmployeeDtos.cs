@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Contracts.Dtos
 {
-    public record EmployeeDto(string Department, string FullName, DateTime BirthDate, DateTime EmploymentDate, decimal Salary);
+    public record EmployeeDto(Guid Id, string Department, string FullName, DateTime BirthDate, DateTime EmploymentDate, decimal Salary);
+    public record EmployeeCreateOrUpdateDto(string Department, string FullName, DateTime BirthDate, DateTime EmploymentDate, decimal Salary);
     public record EmployeeQueryParameters(
         string? Department,
         string? FullName,

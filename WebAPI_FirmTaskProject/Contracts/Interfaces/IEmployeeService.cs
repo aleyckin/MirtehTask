@@ -10,8 +10,8 @@ namespace Contracts.Interfaces
     public interface IEmployeeService
     {
         Task<List<EmployeeDto>> GetAllAsync(EmployeeQueryParameters query);
-        Task CreateAsync(EmployeeDto employeeDto);
-        Task UpdateAsync(Guid Id, EmployeeDto employeeDto);
+        Task CreateAsync(EmployeeCreateOrUpdateDto employeeDto);
+        Task UpdateAsync(Guid Id, EmployeeCreateOrUpdateDto employeeDto);
         Task DeleteAsync(Guid Id);
     }
 }

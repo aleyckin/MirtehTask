@@ -1,0 +1,25 @@
+<div class="modal-backdrop" (click)="close()"></div>
+<div class="modal">
+  <h2>{{ mode === 'create' ? 'Создать сотрудника' : 'Редактировать сотрудника' }}</h2>
+  <form (ngSubmit)="save()">
+    <label>Отдел:</label>
+    <input [(ngModel)]="tempEmployee.department" name="department" required />
+
+    <label>Ф.И.О:</label>
+    <input [(ngModel)]="tempEmployee.fullName" name="fullName" required />
+
+    <label>Дата рождения:</label>
+    <input type="date" [(ngModel)]="tempEmployee.birthDate" name="birthDate" required />
+
+    <label>Дата устройства:</label>
+    <input type="date" [(ngModel)]="tempEmployee.employmentDate" name="employmentDate" required />
+
+    <label>Зарплата:</label>
+    <input type="number" [(ngModel)]="tempEmployee.salary" name="salary" required />
+
+    <div class="buttons">
+      <button type="submit">Сохранить</button>
+      <button type="button" (click)="close()">Отмена</button>
+    </div>
+  </form>
+</div>
