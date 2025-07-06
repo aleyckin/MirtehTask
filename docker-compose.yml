@@ -11,7 +11,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Server=firmDb;Database=firmDb;User=sa;Password=Str0ngP@ssword!;Encrypt=False;TrustServerCertificate=True;
-
+  
   firmDb:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -21,6 +21,15 @@ services:
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
+
+  frontend:
+    build:
+      context: ./firm-frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "4200:8080"
+    depends_on:
+      - api
 
 volumes:
   sql_data:

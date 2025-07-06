@@ -1,0 +1,38 @@
+<div class="filters">
+  <input placeholder="Фильтр Отдел" [(ngModel)]="filters.department" (input)="loadEmployees()" />
+  <input placeholder="Фильтр Ф.И.О" [(ngModel)]="filters.fullName" (input)="loadEmployees()" />
+  <input type="date" [(ngModel)]="filters.birthDateFrom" (change)="loadEmployees()" placeholder="Родились с" />
+  <input type="date" [(ngModel)]="filters.birthDateTo" (change)="loadEmployees()" placeholder="Родились по" />
+  <input type="date" [(ngModel)]="filters.employmentDateFrom" (change)="loadEmployees()" placeholder="Устроены с" />
+  <input type="date" [(ngModel)]="filters.employmentDateTo" (change)="loadEmployees()" placeholder="Устроены по" />
+  <input type="number" placeholder="Зарплата от" [(ngModel)]="filters.salaryMin" (input)="loadEmployees()" />
+  <input type="number" placeholder="Зарплата до" [(ngModel)]="filters.salaryMax" (input)="loadEmployees()" />
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th (click)="sort('department')">Отдел</th>
+      <th (click)="sort('fullName')">Ф.И.О</th>
+      <th (click)="sort('birthDate')">Дата рождения</th>
+      <th (click)="sort('employmentDate')">Дата устройства</th>
+      <th (click)="sort('salary')">Зарплата</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of employees">
+      <td>{{ emp.department }}</td>
+      <td>{{ emp.fullName }}</td>
+      <td>{{ emp.birthDate | date:'yyyy-MM-dd' }}</td>
+      <td>{{ emp.employmentDate | date:'yyyy-MM-dd' }}</td>
+      <td>{{ emp.salary | currency:'RUB':'symbol':'1.2-2' }}</td>
+      <td>
+        <button (click)="openEditModal(emp)">Редактировать</button>
+        <button (click)="openDeleteModal(emp)">Удалить</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="openCreateModal()">Создать сотрудника</button>
